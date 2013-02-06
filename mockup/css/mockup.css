@@ -21,9 +21,13 @@
 .mockup .mockup-container .mockup-row {
 }
 
-.mockup .mockup-container .mockup-column {
+.mockup .mockup-container .mockup-row .mockup-column {
   border: 1px solid #ccc;
   box-sizing: border-box;
   float: left;
   min-height: 200px;
+}
+
+.mockup .mockup-container .mockup-row .mockup-columns-form {
+  clear: both;
 }
