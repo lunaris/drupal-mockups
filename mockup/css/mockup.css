@@ -1,0 +1,29 @@
+.clearfix:before,
+.clearfix:after {
+  content: ' ';
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.mockup {
+}
+
+.mockup .mockup-container {
+}
+
+.mockup .mockup-container .mockup-row {
+}
+
+.mockup .mockup-container .mockup-column {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  float: left;
+  min-height: 200px;
+}

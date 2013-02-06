@@ -19,6 +19,9 @@ function mockup_permission() {
  * Implementation of hook_menu().
  */
 function mockup_menu() {
+  $module_path = drupal_get_path('module', 'mockup');
+  $module_includes_path = "{$module_path}/includes";
+
   $items = array();
 
   $items['admin/structure/mockups'] = array(
@@ -26,6 +29,8 @@ function mockup_menu() {
     'description' => 'Manage mockups.',
     'page callback' => 'mockup_list',
     'access arguments' => array('administer mockups'),
+    'file' => 'mockup.admin.inc',
+    'file path' => $module_includes_path,
   );
 
   return $items;
