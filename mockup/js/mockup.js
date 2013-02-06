@@ -1,25 +1,36 @@
 (function($, Drupal, window, document, undefined) {
-  function addColumnsForm($row) {
-    var $form = $('<form class="mockup-columns-form" />');
-    var $input = $('<input type="text" />');
+  function addColumnsFormInput($row, $form) {
+    var $input =
+      $('<input class="mockup-columns-form-input" type="text" />');
 
     $input.keypress(function(e) {
       var $this = $(this);
-      var value = $this.val() + String.fromCharCode(e.which);
-      var columns = parseInt(value);
+      var c = String.fromCharCode(e.which);
 
-      $('.mockup-column', $row).remove();
+      if (c === ',') {
+        addColumnsFormInput($row, $form);
+      } else {
+        var value = $this.val() + String.fromCharCode(e.which);
+        var columns = parseInt(value);
 
-      var i = 0;
-      for (i = 0; i < columns; i++) {
-        addColumn($row);
+        $('.mockup-column', $row).remove();
+
+        var i = 0;
+        for (i = 0; i < columns; i++) {
+          addColumn($row);
+        }
+
+        var width = 100 / columns;
+        $('.mockup-column', $row).css('width', width + "%");
       }
-
-      var width = 100 / columns;
-      $('.mockup-column', $row).css('width', width + "%");
     });
 
     $input.appendTo($form);
+  }
+
+  function addColumnsForm($row) {
+    var $form = $('<form class="mockup-columns-form" />');
+    addColumnsFormInput($row, $form);
     $form.appendTo($row);
   }
 

@@ -31,3 +31,7 @@
 .mockup .mockup-container .mockup-row .mockup-columns-form {
   clear: both;
 }
+
+.mockup .mockup-container .mockup-row .mockup-columns-form .mockup-columns-form-input {
+  border: 1px solid #ccc;
+}
