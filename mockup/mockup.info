@@ -1,0 +1,6 @@
+name            = Mockup
+description     = Mockup responsive themes from inside your Drupal site.
+core            = 7.x
+version         = 1.0
+
+package         = Mockup
