@@ -3,13 +3,17 @@ define([
   'underscore',
   'backbone',
 
-  'models/mockup'
-], function($, _, Backbone, Mockup) {
+  'models/mockup',
+
+  'views/column-set'
+], function($, _, Backbone, Mockup, ColumnSetView) {
   var MockupView = Backbone.View.extend({
     el: $('.mockups'),
     render: function() {
-      console.log(this.model.get('columnSet'));
-      this.$el.append('Test: ' + this.model.get('columnSet').get('columns'));
+      var columnSet = this.model.get('columnSet');
+      var columnSetView = new ColumnSetView({ model: columnSet });
+
+      columnSetView.render();
     }
   });
 
