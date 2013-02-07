@@ -1,26 +1,32 @@
 define([
   'underscore',
-  'backbone'
-], function(_, Backbone) {
+  'backbone',
+
+  'models/column'
+], function(_, Backbone, Column) {
   function _isPositive(x) {
     return _.isFinite(x) && x > 0;
   }
 
-  function _initializeSymmetric(columns) {
-    this.set({ columns: columns, source: new String(columns) });
+  function _initializeSymmetric(columnCount) {
+    this.set({
+      columnCount: columnCount,
+      source: new String(colummCount)
+    });
 
-    var width = 100 / columns;
-    for (var i = 0; i < columns; i++) {
-      this.get('widths').push(width);
+    var width = 100 / columnCount;
+    for (var i = 0; i < columnCount; i++) {
+      this.get('columns').
+        push(new Column({ offset: i * width, width: width }));
     }
   }
 
   var Grid = Backbone.Model.extend({
     defaults: function() {
       return {
-        columns: 0,
+        columns: new Array(),
+        columnCount: 0,
         source: '',
-        widths: new Array()
       }
     },
 
@@ -32,31 +38,37 @@ define([
           var self = this;
 
           var multiples = new Array();
-          var singleColumns = 0;
-          var columns = 0;
+          var singleColumnCount = 0;
+          var columnCount = 0;
 
           _.each(source.split(','), function(multiple) {
             var multiple = parseInt(multiple);
             if (_isPositive(multiple)) {
               multiples.push(multiple);
-              singleColumns += multiple;
-              columns++;
+              singleColumnCount += multiple;
+              columnCount++;
             }
           });
 
-          var singleColumnWidth = 100 / singleColumns;
+          var singleColumnWidth = 100 / singleColumnCount;
+          var offset = 0;
           _.each(multiples, function(multiple) {
-            self.get('widths').push(singleColumnWidth * multiple);
+            var width = singleColumnWidth * multiple;
+
+            self.get('columns').
+              push(new Column({ offset: offset, width: width }));
+
+            offset += width;
           });
 
           self.set({
-            columns: columns,
+            columnCount: columnCount,
             source: multiples.join(', ')
           });
         } else {
-          var columns = parseInt(source);
-          if (_isPositive(columns)) {
-            _initializeSymmetric.call(this, columns);
+          var columnCount = parseInt(source);
+          if (_isPositive(columnCount)) {
+            _initializeSymmetric.call(this, columnCount);
           }
         }
       }
