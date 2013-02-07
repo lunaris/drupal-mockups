@@ -35,3 +35,23 @@ function mockup_menu() {
 
   return $items;
 }
+
+/**
+ * Implementation of hook_process_html().
+ */
+function mockup_process_html(&$variables) {
+  $module_path = drupal_get_path('module', 'mockup');
+  $module_js_path = "{$module_path}/js";
+
+  $require_js = array(
+    '#tag' => 'script',
+    '#attributes' => array(
+      'data-main' => "/{$module_js_path}/main.js",
+      'src' => "/{$module_js_path}/libraries/require/require.js",
+    ),
+  );
+
+  $variables['scripts'] .=
+    "<script data-main=\"/{$module_js_path}/main\" " .
+      "src=\"/{$module_js_path}/libraries/require/require.js\"></script>";
+}
