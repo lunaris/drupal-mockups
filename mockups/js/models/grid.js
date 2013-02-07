@@ -15,7 +15,7 @@ define([
     }
   }
 
-  var ColumnSet = Backbone.Model.extend({
+  var Grid = Backbone.Model.extend({
     defaults: function() {
       return {
         columns: 0,
@@ -63,5 +63,5 @@ define([
     }
   });
 
-  return ColumnSet;
+  return Grid;
 });

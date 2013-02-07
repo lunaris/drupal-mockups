@@ -2,17 +2,17 @@ define([
   'underscore',
   'backbone',
 
-  'models/column-set'
-], function(_, Backbone, ColumnSet) {
+  'models/grid'
+], function(_, Backbone, Grid) {
   var MockupModel = Backbone.Model.extend({
     defaults: function() {
       return {
-        columnSet: new ColumnSet()
+        grid: new Grid()
       }
     },
 
     initialize: function(source) {
-      this.set({ columnSet: new ColumnSet(source) });
+      this.set({ grid: new Grid(source) });
     }
   });
 

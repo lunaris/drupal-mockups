@@ -5,24 +5,24 @@ define([
 
   'models/mockup',
 
-  'views/column-set'
-], function($, _, Backbone, Mockup, ColumnSetView) {
+  'views/grid'
+], function($, _, Backbone, Mockup, GridView) {
   var MockupView = Backbone.View.extend({
     el: $('.mockups'),
 
     initialize: function() {
-      _.bindAll(this, 'render', 'renderColumnSet');
+      _.bindAll(this, 'render', 'renderGrid');
     },
 
     render: function() {
-      this.renderColumnSet();
+      this.renderGrid();
     },
 
-    renderColumnSet: function() {
-      var columnSet = this.model.get('columnSet');
-      var columnSetView = new ColumnSetView({ model: columnSet });
+    renderGrid: function() {
+      var grid = this.model.get('grid');
+      var gridView = new GridView({ model: grid });
 
-      this.$el.html(columnSetView.render().el);
+      this.$el.html(gridView.render().el);
     }
   });
 

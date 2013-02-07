@@ -3,11 +3,11 @@ define([
   'underscore',
   'backbone',
 
-  'models/column-set'
-], function($, _, Backbone, ColumnSet) {
-  var ColumnSetView = Backbone.View.extend({
+  'models/grid'
+], function($, _, Backbone, Grid) {
+  var GridView = Backbone.View.extend({
     tagName: 'div',
-    className: 'column-set',
+    className: 'grid',
 
     render: function() {
       var self = this;
@@ -23,5 +23,5 @@ define([
     }
   });
 
-  return ColumnSetView;
+  return GridView;
 });
