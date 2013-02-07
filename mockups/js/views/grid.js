@@ -11,6 +11,10 @@ define([
     tagName: 'div',
     className: 'grid',
 
+    initialize: function() {
+      _.bindAll('render');
+    },
+
     render: function() {
       var self = this;
 

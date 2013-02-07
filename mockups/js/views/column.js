@@ -9,6 +9,10 @@ define([
     tagName: 'div',
     className: 'column',
 
+    initialize: function() {
+      _.bindAll('render');
+    },
+
     render: function() {
       this.$el.css({ width: this.model.get('width') + '%' });
       return this;
