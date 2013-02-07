@@ -1,7 +1,7 @@
 require.config({
   paths: {
     'backbone': 'libraries/backbone/backbone.min',
-    'jquery': '/misc/jquery',
+    'jquery': 'libraries/jquery/jquery.min',
     'underscore': 'libraries/underscore/underscore.min'
   }
 });
@@ -9,5 +9,5 @@ require.config({
 require([
   'mockups'
 ], function(Mockups) {
-  Mockups.initialise();
+  Mockups.initialize();
 });

@@ -7,5 +7,5 @@ function mockups_list() {
 
   drupal_add_js("{$module_js_path}/libraries/require/require.js");
 
-  return '<div class="mockup"></div>';
+  return '<div class="mockups"></div>';
 }
