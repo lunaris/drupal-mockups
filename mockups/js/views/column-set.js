@@ -6,17 +6,20 @@ define([
   'models/column-set'
 ], function($, _, Backbone, ColumnSet) {
   var ColumnSetView = Backbone.View.extend({
-    el: $('.mockups'),
-    render: function() {
-      var $columnSet = $('<div class="column-set" />');
+    tagName: 'div',
+    className: 'column-set',
 
-      _.each(this.model.get('widths'), function(width) {
-        $('<div class="column"/>').css({
-          width: width + '%'
-        }).appendTo($columnSet);
+    render: function() {
+      var self = this;
+
+      self.$el.empty();
+      _.each(self.model.get('widths'), function(width) {
+        $('<div class="column" />').
+          css({ width: width + '%' }).
+          appendTo(self.$el);
       });
 
-      $columnSet.appendTo(this.$el);
+      return self;
     }
   });
 
