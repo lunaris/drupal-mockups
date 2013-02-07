@@ -1,10 +1,18 @@
 define([
   'underscore',
-  'backbone'
-], function(_, Backbone) {
+  'backbone',
+
+  'models/column-set'
+], function(_, Backbone, ColumnSet) {
   var MockupModel = Backbone.Model.extend({
-    defaults: {
-      columns: 12
+    defaults: function() {
+      return {
+        columnSet: new ColumnSet()
+      }
+    },
+
+    initialize: function(source) {
+      this.set({ columnSet: new ColumnSet(source) });
     }
   });
 
