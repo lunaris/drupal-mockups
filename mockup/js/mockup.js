@@ -1,4 +1,19 @@
 (function($, Drupal, window, document, undefined) {
+  function parseColumns(value) {
+    var columns = value.split(',').
+      map(function(width) { return width.trim(' '); });
+
+    var count = columns.length;
+    if (count == 1) {
+      var columns = parseInt(value);
+      var width = 100 / columns;
+      for (var i = 0; i < columns; i++) {
+        widths.push(width);
+      }
+    } else {
+    }
+  }
+
   function addColumnsFormInput($row, $form) {
     var $input =
       $('<input class="mockup-columns-form-input" type="text" />');
@@ -6,23 +21,18 @@
     $input.keypress(function(e) {
       var $this = $(this);
       var c = String.fromCharCode(e.which);
+      var value = $this.val() + c;
+      var columns = parseInt(value);
 
-      if (c === ',') {
-        addColumnsFormInput($row, $form);
-      } else {
-        var value = $this.val() + String.fromCharCode(e.which);
-        var columns = parseInt(value);
+      $('.mockup-column', $row).remove();
 
-        $('.mockup-column', $row).remove();
-
-        var i = 0;
-        for (i = 0; i < columns; i++) {
-          addColumn($row);
-        }
-
-        var width = 100 / columns;
-        $('.mockup-column', $row).css('width', width + "%");
+      var i = 0;
+      for (i = 0; i < columns; i++) {
+        addColumn($row);
       }
+
+      var width = 100 / columns;
+      $('.mockup-column', $row).css('width', width + "%");
     });
 
     $input.appendTo($form);
