@@ -37,21 +37,17 @@ function mockup_menu() {
 }
 
 /**
- * Implementation of hook_process_html().
+ * Implementation of hook_preprocess_html_tag().
  */
-function mockup_process_html(&$variables) {
-  $module_path = drupal_get_path('module', 'mockup');
-  $module_js_path = "{$module_path}/js";
+function mockup_preprocess_html_tag(&$variables) {
+  if (isset($variables['element']['#attributes']['src'])) {
+    $attributes =& $variables['element']['#attributes'];
 
-  $require_js = array(
-    '#tag' => 'script',
-    '#attributes' => array(
-      'data-main' => "/{$module_js_path}/main.js",
-      'src' => "/{$module_js_path}/libraries/require/require.js",
-    ),
-  );
+    $module_js_path = base_path() . drupal_get_path('module', 'mockup') . '/js';
+    $pattern = "#{$module_js_path}/libraries/require/require\.js#";
 
-  $variables['scripts'] .=
-    "<script data-main=\"/{$module_js_path}/main\" " .
-      "src=\"/{$module_js_path}/libraries/require/require.js\"></script>";
+    if (preg_match($pattern, $attributes['src'])) {
+      $attributes['data-main'] = "{$module_js_path}/main";
+    }
+  }
 }

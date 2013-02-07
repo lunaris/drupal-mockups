@@ -1,9 +1,8 @@
 require.config({
   paths: {
-    backbone: 'libraries/backbone/backbone-min',
-    underscore: 'libraries/underscore/underscore-min',
-    jQuery: '/misc/jquery',
-    templates: '../templates'
+    'backbone': 'libraries/backbone/backbone.min',
+    'jquery': '/misc/jquery',
+    'underscore': 'libraries/underscore/underscore.min'
   }
 });
 
