@@ -7,7 +7,7 @@ require.config({
 });
 
 require([
-  'mockup'
-], function(Mockup) {
-  Mockup.initialise();
+  'mockups'
+], function(Mockups) {
+  Mockups.initialise();
 });
