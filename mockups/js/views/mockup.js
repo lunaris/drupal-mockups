@@ -5,9 +5,9 @@ define([
 
   'models/mockup',
 
-  'views/column',
-  'views/grid'
-], function($, _, Backbone, Mockup, ColumnView, GridView) {
+  'views/grid',
+  'views/span'
+], function($, _, Backbone, Mockup, GridView, SpanView) {
   var MockupView = Backbone.View.extend({
     el: $('.mockups'),
 
@@ -33,9 +33,8 @@ define([
 
       var $spans = $('<div class="spans" />');
       _.each(spans, function(span) {
-        var renderedColumn = new ColumnView({ model: span }).render();
-        renderedColumn.$el.css({ marginLeft: span.get('offset') + '%' });
-        $spans.append(renderedColumn.$el);
+        var renderedSpan = new SpanView({ model: span }).render();
+        $spans.append(renderedSpan.$el);
       });
 
       this.$el.append($spans);

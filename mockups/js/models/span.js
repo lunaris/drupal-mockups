@@ -4,8 +4,8 @@ define([
 
   'models/box'
 ], function(_, Backbone, Box) {
-  var Column = Box.extend({
+  var Span = Box.extend({
   });
 
-  return Column;
+  return Span;
 });

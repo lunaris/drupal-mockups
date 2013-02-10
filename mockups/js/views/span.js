@@ -5,9 +5,9 @@ define([
 
   'views/box'
 ], function($, _, Backbone, BoxView) {
-  var ColumnView = BoxView.extend({
-    className: 'column',
+  var SpanView = BoxView.extend({
+    className: 'span',
   });
 
-  return ColumnView;
+  return SpanView;
 });

@@ -1,8 +1,12 @@
 .grid {
+  $min-height: 200px;
+
+  min-height: $min-height;
+  position: relative;
+
   .column {
     border: 1px solid #ccc;
     box-sizing: border-box;
-    float: left;
-    min-height: 200px;
+    min-height: $min-height;
   }
 }

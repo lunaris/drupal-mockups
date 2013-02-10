@@ -2,9 +2,9 @@ define([
   'underscore',
   'backbone',
 
-  'models/column',
-  'models/grid'
-], function(_, Backbone, Column, Grid) {
+  'models/grid',
+  'models/span'
+], function(_, Backbone, Grid, Span) {
   var Mockup = Backbone.Model.extend({
     defaults: function() {
       return {
@@ -27,7 +27,7 @@ define([
       }
 
       this.get('spans').
-        push(new Column({ offset: offset, width: width }));
+        push(new Span({ offset: offset, width: width }));
     }
   });
 
