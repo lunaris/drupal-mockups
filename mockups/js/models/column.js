@@ -6,7 +6,8 @@ define([
 ], function(_, Backbone, Box) {
   var Column = Box.extend({
     defaults: {
-      padding: '0'
+      gutter: 0,
+      padding: 0
     },
 
     initialize: function() {
