@@ -8,17 +8,53 @@ define([
     return _.isFinite(x) && x > 0;
   }
 
-  function _initializeSymmetric(columnCount) {
-    this.set({
-      columnCount: columnCount,
-      source: new String(colummCount)
+  function _symmetricColumns(columnCount) {
+    var columns = new Array();
+    for (var i = 0; i < columnCount; i++) {
+      columns.push(1);
+    }
+
+    return columns;
+  }
+
+  function _initialize(columns, gutter) {
+    var self = this;
+
+    var multiples = new Array();
+    var singleColumnCount = 0;
+    var columnCount = 0;
+
+    _.each(columns, function(column) {
+      var multiple = parseInt(column);
+      if (_isPositive(multiple)) {
+        multiples.push(multiple);
+        singleColumnCount += multiple;
+        columnCount++;
+      }
     });
 
-    var width = 100 / columnCount;
-    for (var i = 0; i < columnCount; i++) {
-      this.get('columns').
-        push(new Column({ offset: i * width, width: width }));
-    }
+    var gutter = parseFloat(gutter);
+    gutter = _isPositive(gutter) ? gutter : 0;
+
+    var gutterColumnCount = gutter * (columnCount - 1);
+    var singleColumnWidth = 100 / (singleColumnCount + gutterColumnCount);
+    var gutterWidth = gutter * singleColumnWidth;
+
+    var offset = 0;
+    _.each(multiples, function(multiple) {
+      var width = singleColumnWidth * multiple;
+
+      self.get('columns').
+        push(new Column({ offset: offset, width: width }));
+
+      offset += width + gutterWidth;
+    });
+
+    self.set({
+      columnCount: columnCount,
+      gutter: gutter,
+      source: multiples.join(', ')
+    });
   }
 
   var Grid = Backbone.Model.extend({
@@ -26,52 +62,28 @@ define([
       return {
         columns: new Array(),
         columnCount: 0,
+        gutter: 0,
         source: '',
       }
     },
 
     initialize: function(source) {
+      var columns = _symmetricColumns(12);
+
       if (_isPositive(source)) {
-        _initializeSymmetric.call(this, source);
+        columns = _symmetricColumns(source);
       } else if (_.isString(source)) {
         if (source.indexOf(',') !== -1) {
-          var self = this;
-
-          var multiples = new Array();
-          var singleColumnCount = 0;
-          var columnCount = 0;
-
-          _.each(source.split(','), function(multiple) {
-            var multiple = parseInt(multiple);
-            if (_isPositive(multiple)) {
-              multiples.push(multiple);
-              singleColumnCount += multiple;
-              columnCount++;
-            }
-          });
-
-          var singleColumnWidth = 100 / singleColumnCount;
-          var offset = 0;
-          _.each(multiples, function(multiple) {
-            var width = singleColumnWidth * multiple;
-
-            self.get('columns').
-              push(new Column({ offset: offset, width: width }));
-
-            offset += width;
-          });
-
-          self.set({
-            columnCount: columnCount,
-            source: multiples.join(', ')
-          });
+          columns = source.split(',');
         } else {
           var columnCount = parseInt(source);
           if (_isPositive(columnCount)) {
-            _initializeSymmetric.call(this, columnCount);
+            columns = _symmetricColumns(columnCount);
           }
         }
       }
+
+      _initialize.call(this, columns, 0.5);
     }
   });
 
