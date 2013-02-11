@@ -21,7 +21,7 @@ define([
       var columns = this.get('grid').get('columns');
       var offset = columns[location - 1].get('offset');
 
-      var width = 0;
+      var width = (span - 1) * this.get('grid').get('gutter');
       for (var i = 0; i < span; i++) {
         width += columns[location - 1 + i].get('width');
       }

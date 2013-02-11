@@ -52,7 +52,7 @@ define([
 
     self.set({
       columnCount: columnCount,
-      gutter: gutter,
+      gutter: gutterWidth,
       source: multiples.join(', ')
     });
   }
