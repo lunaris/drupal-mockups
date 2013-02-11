@@ -5,8 +5,7 @@
   position: relative;
 
   .column {
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    background-color: rgba(#069, 0.3);
     min-height: $min-height;
   }
 }
