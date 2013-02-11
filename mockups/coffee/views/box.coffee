@@ -14,9 +14,9 @@ define [
 
     render: ->
       @$el.css
-        left: (@model.get 'offset') + '%'
+        left: "#{@model.get 'offset'}%"
         position: 'absolute'
         top: 0
-        width: (@model.get 'width') + '%'
+        width: "#{@model.get 'width'}%"
 
       return @
