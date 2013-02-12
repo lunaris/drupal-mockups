@@ -12,7 +12,7 @@ define [
         columns: '1, 3 ,2,5  , 6, 4'
         gutter: '.1'
 
-    mockup.addSpan 2, 3
+    mockup.addSpan 2, 4
 
     ###
     mockup.addSpan 3, 4

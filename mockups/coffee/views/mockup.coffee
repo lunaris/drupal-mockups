@@ -6,8 +6,8 @@ define [
   'models/mockup'
 
   'views/grid'
-  'views/span'
-], ($, _, Backbone, Mockup, GridView, SpanView) ->
+  'views/span/resizable'
+], ($, _, Backbone, Mockup, GridView, ResizableSpanView) ->
   MockupView = Backbone.View.extend
     el: $ '.mockups'
 
@@ -27,8 +27,12 @@ define [
 
     renderSpans: ->
       $spans = $ '<div class="spans" />'
-      _.each @model.spans, (span) ->
-        renderedSpan = (new SpanView { model: span }).render()
-        $spans.append renderedSpan.$el
+      _.each @model.spans, (span) =>
+        view = new ResizableSpanView
+          model: span
+          grid: @model.grid
+          parent: $spans
+
+        $spans.append view.render().el
 
       @$el.append $spans
