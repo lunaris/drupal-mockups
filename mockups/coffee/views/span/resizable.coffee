@@ -5,6 +5,7 @@ define [
 
   'views/span'
 
+  'jquery/ui/draggable'
   'jquery/ui/resizable'
 ], ($, _, Backbone, SpanView) ->
   ResizableSpanView = SpanView.extend
@@ -14,6 +15,7 @@ define [
       @constructor.__super__.render.apply @, _.rest arguments
 
       @$el.resizable
+        handles: 'e, w'
         resize: (e, ui) =>
           elementLeft = ui.element.position().left
           elementWidth = ui.element.width()
@@ -31,6 +33,7 @@ define [
               width += column.get 'width'
 
           width += (columnCount - 1) * grid.gutter
+          @model.set { width: width }
           ui.element.width (width * pxPerPercent)
 
       return @
