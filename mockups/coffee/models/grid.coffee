@@ -10,7 +10,7 @@ define [
   _symmetricColumns = (columnCount) ->
     1 for i in _.range columnCount
 
-  _initialize = (columns, gutter) ->
+  _initialize = (columns, gutterSource) ->
     multiples = []
     singleColumnCount = columnCount = 0
 
@@ -21,46 +21,48 @@ define [
         singleColumnCount += multiple
         columnCount++
 
-    gutter = parseFloat gutter
+    gutter = parseFloat gutterSource
     gutter = if _isPositive gutter then gutter else 0
 
     gutterColumnCount = gutter * (columnCount - 1)
     singleColumnWidth = 100 / (singleColumnCount + gutterColumnCount)
     gutterWidth = gutter * singleColumnWidth
 
+    @columns = []
     offset = 0
+
     _.each multiples, (multiple) =>
       width = singleColumnWidth * multiple
 
-      (@get 'columns').push new Column
+      @columns.push new Column
         offset: offset
         width: width
 
       offset += width + gutterWidth
 
+    @columnCount = columnCount
+    @gutter = gutterWidth
+
     @set
-      columnCount: columnCount
-      gutter: gutterWidth
-      source: multiples.join ', '
+      columns: multiples.join ', '
+      gutter: gutterSource
 
   Grid = Backbone.Model.extend
     defaults: ->
-      columns: []
-      columnCount: 0
-      gutter: 0
-      source: ''
+      columns: '12'
+      gutter: '.1'
 
-    initialize: (source) ->
-      columns = _symmetricColumns(12)
-
-      if _isPositive source
-        columns = _symmetricColumns source
-      else if _.isString source
-        if (source.indexOf ',') isnt -1
-          columns = source.split ','
+    initialize: ->
+      columnsSource = @get 'columns'
+      if _isPositive columns
+        columns = _symmetricColumns columnsSource
+      else if _.isString columnsSource
+        if (columnsSource.indexOf ',') isnt -1
+          columns = columnsSource.split ','
         else
-          columnCount = parseInt source
+          columnCount = parseInt columnsSource
           if _isPositive columnCount
             columns = _symmetricColumns columnCount
 
-      _initialize.call @, columns, 0.5
+      columns ?= _symmetricColumns(12)
+      _initialize.call @, columns, @get 'gutter'

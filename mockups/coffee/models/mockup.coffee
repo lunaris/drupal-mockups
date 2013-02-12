@@ -6,19 +6,17 @@ define [
   'models/span'
 ], (_, Backbone, Grid, Span) ->
   Mockup = Backbone.Model.extend
-    defaults: ->
-      grid: new Grid
-      spans: []
+    initialize: ->
+      source = @get 'source'
 
-    initialize: (source) ->
-      @set { grid: new Grid source }
+      @grid = new Grid source
+      @spans = []
 
     addSpan: (span, location) ->
-      grid = @get 'grid'
-      columns = grid.get 'columns'
+      columns = @grid.columns
       offset = columns[location - 1].get 'offset'
 
-      width = (span - 1) * (grid.get 'gutter')
+      width = (span - 1) * @grid.gutter
       width += columns[location - 1 + i].get 'width' for i in _.range(span)
 
-      (@get 'spans').push new Span { offset: offset, width: width }
+      @spans.push new Span { offset: offset, width: width }

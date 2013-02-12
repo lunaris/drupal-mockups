@@ -16,7 +16,7 @@ define [
 
     render: ->
       @$el.empty()
-      _.each (@model.get 'columns'), (column) =>
+      _.each @model.columns, (column) =>
         @$el.append (new ColumnView { model: column }).render().el
 
       return @

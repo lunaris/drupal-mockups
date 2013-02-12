@@ -7,7 +7,11 @@ define [
   'views/mockup'
 ], ($, _, Backbone, Mockup, MockupView) ->
   initialize = ->
-    mockup = new Mockup '1, 3 ,2,5  , 6, 4'
+    mockup = new Mockup
+      source:
+        columns: '1, 3 ,2,5  , 6, 4'
+        gutter: '.1'
+
     mockup.addSpan 2, 3
 
     ###

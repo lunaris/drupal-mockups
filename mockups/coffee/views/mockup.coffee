@@ -22,16 +22,12 @@ define [
       return @
 
     renderGrid: ->
-      grid = @model.get 'grid'
-      gridView = new GridView { model: grid }
-
+      gridView = new GridView { model: @model.grid }
       @$el.append gridView.render().el
 
     renderSpans: ->
-      spans = @model.get 'spans'
-
       $spans = $ '<div class="spans" />'
-      _.each spans, (span) ->
+      _.each @model.spans, (span) ->
         renderedSpan = (new SpanView { model: span }).render()
         $spans.append renderedSpan.$el
 
