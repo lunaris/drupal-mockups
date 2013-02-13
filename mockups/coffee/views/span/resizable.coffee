@@ -25,15 +25,22 @@ define [
 
           grid = @options.grid
           columnCount = width = 0
+          firstColumn = null
 
           _.each grid.columns, (column) ->
             offset = (column.get 'offset') * pxPerPercent
             if offset >= elementLeft && offset < elementRight
+              firstColumn ?= column
               columnCount++
               width += column.get 'width'
 
           width += (columnCount - 1) * grid.gutter
-          @model.set { width: width }
-          ui.element.width (width * pxPerPercent)
+          @model.set
+            offset: firstColumn.get 'offset'
+            width: width
+
+          ui.element.css
+            left: "#{firstColumn.get 'offset'}%"
+            width: "#{width}%"
 
       return @
