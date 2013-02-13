@@ -11,7 +11,7 @@ define [
   MockupView = Backbone.View.extend
     tagName: 'div'
     className: 'mockup'
-    id: -> "mockup-#{@model.id}"
+    id: -> "mockup-#{@model.cid}"
 
     initialize: ->
       _.bindAll @, 'render', 'renderGrid', 'renderSpans'
