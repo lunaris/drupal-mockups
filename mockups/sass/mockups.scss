@@ -1,6 +1,24 @@
-@import "grid";
-@import "spans";
-
 .mockups {
-  position: relative;
+  .mockup {
+    $mockup-height: 100px;
+
+    position: relative;
+
+    .grid {
+      min-height: $mockup-height;
+      position: relative;
+
+      .column {
+        background-color: rgba(#069, 0.3);
+        min-height: $mockup-height;
+      }
+    }
+
+    .spans {
+      .span {
+        background-color: rgba(#006, 0.3);
+        min-height: $mockup-height;
+      }
+    }
+  }
 }

@@ -9,7 +9,9 @@ define [
   'views/span/resizable'
 ], ($, _, Backbone, Mockup, GridView, ResizableSpanView) ->
   MockupView = Backbone.View.extend
-    el: $ '.mockups'
+    tagName: 'div'
+    className: 'mockup'
+    id: -> "mockup-#{@model.id}"
 
     initialize: ->
       _.bindAll @, 'render', 'renderGrid', 'renderSpans'
